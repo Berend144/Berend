@@ -2,17 +2,6 @@
 	'use strict';
 
 	$( function () {
-		// Tabnavigatie in het instellingenscherm.
-		$( '.brt-admin-tabnav' ).on( 'click', '.brt-admin-tabbtn', function () {
-			var tab = $( this ).data( 'tab' );
-
-			$( '.brt-admin-tabbtn' ).removeClass( 'active' );
-			$( this ).addClass( 'active' );
-
-			$( '.brt-admin-tabpanel' ).removeClass( 'active' );
-			$( '.brt-admin-tabpanel[data-tab="' + tab + '"]' ).addClass( 'active' );
-		} );
-
 		// Mediabibliotheek voor het kiezen van een foto per tab.
 		$( '.brt-image-picker' ).each( function () {
 			var $picker      = $( this );

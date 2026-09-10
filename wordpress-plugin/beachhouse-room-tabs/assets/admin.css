@@ -2,45 +2,55 @@
 	max-width: 700px;
 }
 
-.brt-admin-tabs {
+.brt-admin-wrap .form-table {
 	max-width: 700px;
-	margin-top: 20px;
 }
 
-.brt-admin-tabnav {
+.brt-overview-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 16px;
+	max-width: 760px;
+	margin: 16px 0 32px;
+}
+
+.brt-overview-card {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 4px;
-	border-bottom: 1px solid #dcdcde;
-	margin-bottom: 20px;
-}
-
-.brt-admin-tabbtn {
-	background: #f0f0f1;
-	border: 1px solid #dcdcde;
-	border-bottom: none;
-	padding: 8px 16px;
-	cursor: pointer;
-	font-size: 14px;
-	border-radius: 4px 4px 0 0;
-}
-
-.brt-admin-tabbtn.active {
-	background: #fff;
-	font-weight: 600;
-	position: relative;
-	top: 1px;
-}
-
-.brt-admin-tabpanel {
-	display: none;
+	flex-direction: column;
 	background: #fff;
 	border: 1px solid #dcdcde;
-	padding: 10px 20px;
+	border-radius: 4px;
+	overflow: hidden;
+	text-decoration: none;
+	color: #1d2327;
 }
 
-.brt-admin-tabpanel.active {
+.brt-overview-card:hover {
+	border-color: #8c8f94;
+}
+
+.brt-overview-card img {
+	width: 100%;
+	height: 120px;
+	object-fit: cover;
 	display: block;
+}
+
+.brt-overview-empty {
+	width: 100%;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f0f0f1;
+	color: #787c82;
+	font-size: 13px;
+	text-align: center;
+}
+
+.brt-overview-label {
+	padding: 8px 12px;
+	font-weight: 600;
 }
 
 .brt-image-picker .brt-preview {
