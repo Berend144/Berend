@@ -1,0 +1,68 @@
+.brt-admin-wrap p {
+	max-width: 700px;
+}
+
+.brt-admin-tabs {
+	max-width: 700px;
+	margin-top: 20px;
+}
+
+.brt-admin-tabnav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	border-bottom: 1px solid #dcdcde;
+	margin-bottom: 20px;
+}
+
+.brt-admin-tabbtn {
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	border-bottom: none;
+	padding: 8px 16px;
+	cursor: pointer;
+	font-size: 14px;
+	border-radius: 4px 4px 0 0;
+}
+
+.brt-admin-tabbtn.active {
+	background: #fff;
+	font-weight: 600;
+	position: relative;
+	top: 1px;
+}
+
+.brt-admin-tabpanel {
+	display: none;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	padding: 10px 20px;
+}
+
+.brt-admin-tabpanel.active {
+	display: block;
+}
+
+.brt-image-picker .brt-preview {
+	display: block;
+	max-width: 320px;
+	max-height: 220px;
+	width: auto;
+	height: auto;
+	border: 1px solid #dcdcde;
+	margin-bottom: 8px;
+	object-fit: cover;
+}
+
+.brt-image-picker .brt-preview-placeholder {
+	width: 320px;
+	max-width: 100%;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f0f0f1;
+	border: 1px dashed #c3c4c7;
+	color: #787c82;
+	margin-bottom: 8px;
+}
