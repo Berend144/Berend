@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pong</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: #0b0b12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    color: #eee;
+  }
+  #wrap {
+    text-align: center;
+  }
+  h1 {
+    letter-spacing: 0.5em;
+    font-weight: normal;
+    margin: 0 0 10px 0;
+  }
+  canvas {
+    background: #000;
+    border: 2px solid #444;
+    box-shadow: 0 0 30px rgba(255,255,255,0.08);
+  }
+  #info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
+  }
+  #controls {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #666;
+  }
+  button {
+    background: #1a1a24;
+    color: #eee;
+    border: 1px solid #444;
+    padding: 6px 14px;
+    font-family: inherit;
+    cursor: pointer;
+    margin: 0 4px;
+    border-radius: 4px;
+  }
+  button:hover {
+    background: #2a2a38;
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>PONG</h1>
+  <canvas id="game" width="800" height="500"></canvas>
+  <div id="info">Eerste tot 7 punten wint</div>
+  <div id="controls">
+    Speler links: <b>W</b> / <b>S</b> &nbsp;|&nbsp;
+    Speler rechts: <b>&uarr;</b> / <b>&darr;</b> &nbsp;|&nbsp;
+    <button id="modeBtn">Modus: vs Computer</button>
+    <button id="pauseBtn">Pauze (spatie)</button>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+
+const PADDLE_W = 12, PADDLE_H = 90, PADDLE_SPEED = 6;
+const BALL_SIZE = 12;
+const WIN_SCORE = 7;
+
+let vsComputer = true;
+let paused = false;
+let gameOver = false;
+
+const left = { x: 20, y: H/2 - PADDLE_H/2, w: PADDLE_W, h: PADDLE_H, dy: 0, score: 0 };
+const right = { x: W - 20 - PADDLE_W, y: H/2 - PADDLE_H/2, w: PADDLE_W, h: PADDLE_H, dy: 0, score: 0 };
+
+let ball = newBall();
+
+function newBall(direction) {
+  const angle = (Math.random() * 0.6 - 0.3);
+  const dir = direction || (Math.random() < 0.5 ? 1 : -1);
+  const speed = 6;
+  return {
+    x: W/2 - BALL_SIZE/2,
+    y: H/2 - BALL_SIZE/2,
+    size: BALL_SIZE,
+    dx: Math.cos(angle) * speed * dir,
+    dy: Math.sin(angle) * speed
+  };
+}
+
+const keys = {};
+document.addEventListener('keydown', (e) => {
+  keys[e.key] = true;
+  if (e.key === ' ') {
+    paused = !paused;
+    e.preventDefault();
+  }
+  if (e.key === 'Enter' && gameOver) {
+    resetGame();
+  }
+});
+document.addEventListener('keyup', (e) => { keys[e.key] = false; });
+
+document.getElementById('modeBtn').addEventListener('click', () => {
+  vsComputer = !vsComputer;
+  document.getElementById('modeBtn').textContent = 'Modus: ' + (vsComputer ? 'vs Computer' : '2 Spelers');
+});
+document.getElementById('pauseBtn').addEventListener('click', () => { paused = !paused; });
+
+function resetGame() {
+  left.score = 0;
+  right.score = 0;
+  left.y = H/2 - PADDLE_H/2;
+  right.y = H/2 - PADDLE_H/2;
+  ball = newBall();
+  gameOver = false;
+  paused = false;
+}
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, v));
+}
+
+function update() {
+  if (paused || gameOver) return;
+
+  // Speler links
+  if (keys['w'] || keys['W']) left.dy = -PADDLE_SPEED;
+  else if (keys['s'] || keys['S']) left.dy = PADDLE_SPEED;
+  else left.dy = 0;
+  left.y = clamp(left.y + left.dy, 0, H - left.h);
+
+  // Speler rechts of computer
+  if (vsComputer) {
+    const target = ball.y + ball.size/2 - right.h/2;
+    const center = right.y;
+    const diff = target - center;
+    const compSpeed = PADDLE_SPEED * 0.85;
+    if (Math.abs(diff) > compSpeed) {
+      right.y += Math.sign(diff) * compSpeed;
+    } else {
+      right.y += diff;
+    }
+    right.y = clamp(right.y, 0, H - right.h);
+  } else {
+    if (keys['ArrowUp']) right.dy = -PADDLE_SPEED;
+    else if (keys['ArrowDown']) right.dy = PADDLE_SPEED;
+    else right.dy = 0;
+    right.y = clamp(right.y + right.dy, 0, H - right.h);
+  }
+
+  // Bal beweging
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+
+  // Botsing boven/onder
+  if (ball.y <= 0) {
+    ball.y = 0;
+    ball.dy *= -1;
+  } else if (ball.y + ball.size >= H) {
+    ball.y = H - ball.size;
+    ball.dy *= -1;
+  }
+
+  // Botsing met paddles
+  if (ball.dx < 0 &&
+      ball.x <= left.x + left.w &&
+      ball.x + ball.size >= left.x &&
+      ball.y + ball.size >= left.y &&
+      ball.y <= left.y + left.h) {
+    ball.x = left.x + left.w;
+    reflect(ball, left);
+  } else if (ball.dx > 0 &&
+      ball.x + ball.size >= right.x &&
+      ball.x <= right.x + right.w &&
+      ball.y + ball.size >= right.y &&
+      ball.y <= right.y + right.h) {
+    ball.x = right.x - ball.size;
+    reflect(ball, right);
+  }
+
+  // Score
+  if (ball.x + ball.size < 0) {
+    right.score++;
+    checkWin();
+    if (!gameOver) ball = newBall(1);
+  } else if (ball.x > W) {
+    left.score++;
+    checkWin();
+    if (!gameOver) ball = newBall(-1);
+  }
+}
+
+function reflect(b, paddle) {
+  const relativeIntersect = (paddle.y + paddle.h/2) - (b.y + b.size/2);
+  const norm = relativeIntersect / (paddle.h/2);
+  const bounceAngle = norm * (Math.PI/3); // max 60 graden
+  const speed = Math.min(Math.hypot(b.dx, b.dy) * 1.05, 16);
+  const dir = paddle === left ? 1 : -1;
+  b.dx = dir * speed * Math.cos(bounceAngle);
+  b.dy = speed * -Math.sin(bounceAngle);
+}
+
+function checkWin() {
+  if (left.score >= WIN_SCORE || right.score >= WIN_SCORE) {
+    gameOver = true;
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Middenlijn
+  ctx.strokeStyle = '#333';
+  ctx.setLineDash([8, 12]);
+  ctx.beginPath();
+  ctx.moveTo(W/2, 0);
+  ctx.lineTo(W/2, H);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Paddles
+  ctx.fillStyle = '#eee';
+  ctx.fillRect(left.x, left.y, left.w, left.h);
+  ctx.fillRect(right.x, right.y, right.w, right.h);
+
+  // Bal
+  ctx.fillRect(ball.x, ball.y, ball.size, ball.size);
+
+  // Score
+  ctx.font = '48px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText(left.score, W/2 - 60, 60);
+  ctx.fillText(right.score, W/2 + 60, 60);
+
+  if (paused && !gameOver) {
+    ctx.font = '28px monospace';
+    ctx.fillText('PAUZE', W/2, H/2);
+  }
+
+  if (gameOver) {
+    ctx.font = '32px monospace';
+    const winner = left.score > right.score ? 'Links' : 'Rechts';
+    ctx.fillText(winner + ' wint!', W/2, H/2 - 10);
+    ctx.font = '18px monospace';
+    ctx.fillText('Druk op Enter om opnieuw te spelen', W/2, H/2 + 24);
+  }
+}
+
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+</body>
+</html>
