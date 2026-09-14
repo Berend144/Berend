@@ -1,0 +1,121 @@
+BEACHHOUSE BOEKINGEN – VERSIE 1.1.7
+
+INSTALLEREN
+WordPress > Plugins > Nieuwe plugin toevoegen > Plugin uploaden.
+Selecteer het ZIP-bestand. Kies, als WordPress dit vraagt, om de bestaande
+Beachhouse Boekingen-plugin te vervangen door de geüploade versie.
+Laat de bestaande plugin en opgeslagen boekingen staan; verwijderen is niet nodig.
+Maak vooraf een back-up van de website en database.
+Leeg na het bijwerken eventuele websitecache en Elementor-cache.
+
+SHORTCODES
+Nederlands: [beachhouse_boeking]
+Engels:     [beachhouse_boekingENGELS]
+Frans:      [beachhouse_boekingFRANS]
+Spaans:     [beachhouse_boekingSPAANS]
+
+Plaats op elke taalpagina de passende shortcode in een Elementor Shortcode-widget.
+De varianten met engels, frans en spaans in kleine letters werken ook.
+De taal van de shortcode bepaalt de kalender, het formulier, de meldingen,
+maandnamen, datumnotatie en ontvangstbevestiging aan de gast.
+
+HUISSTIJL
+Koppen: Cormorant Garamond. Overige tekst: IBM Plex Sans.
+Knoppen: #315779 met witte tekst; bij hover #A7D6FF met blauwe tekst.
+Rechte knoppen en lichte panelen. Felgroene, gele en koraalrode seizoenbolletjes.
+De bestaande tarieven en tariefperiodes voor 2027 zijn behouden.
+
+ONTVANGSTBEVESTIGING
+Een aanvraag wordt eerst in WordPress opgeslagen. Daarna ontvangt de gast
+in de taal van de shortcode een opgemaakte e-mail met de gekozen data,
+het aantal nachten en personen, de huurprijs en de melding dat jullie
+zo snel mogelijk contact opnemen. Dit is geen definitieve boekingsbevestiging.
+Een aanvraag blokkeert de kalender pas nadat deze in het beheer wordt bevestigd.
+
+JOUW E-MAIL EN BEHEER
+Meldingen naar info@beachhousecostablanca.com blijven Nederlands.
+De melding en het boekingsoverzicht tonen ook de taal van de gast.
+Namen en vrij ingevulde nationaliteit worden overgenomen zoals de gast ze invult.
+Antwoorden op de gastmail komen bij info@beachhousecostablanca.com terecht.
+Bij een door WordPress gemelde verzendfout blijft de aanvraag opgeslagen.
+Een mislukte gast- of beheerdersmail wordt in het boekingsoverzicht gemarkeerd.
+De gast krijgt bij een mislukte gastmail te zien dat opnieuw aanvragen niet nodig is.
+
+CONTROLE NA INSTALLATIE
+Doe één proefaanvraag per taalpagina met je eigen e-mailadres.
+Controleer het WordPress-overzicht, de Nederlandse beheerdersmail en de
+bevestigingsmail in de taal van de pagina. Controleer ook de spammap.
+De plugin gebruikt de bestaande WordPress-mailvoorziening. De hosting of
+SMTP-instelling moet dus e-mail kunnen versturen. Een succesvolle aanroep
+van de mailfunctie garandeert geen aflevering in de inbox.
+
+VALIDATIE
+De frontend-JavaScript is voor alle vier talen gecontroleerd met gesimuleerde
+interacties: datumkeuze, 7-nachtenprijs, geblokkeerde perioden, reset,
+aanvraagtaal en vertaalde antwoordmeldingen. De bestaande prijsberekening
+en overlapcontrole zijn behouden. PHP-uitvoering, WordPress-integratie en
+werkelijke e-mailbezorging konden in deze omgeving niet worden getest.
+
+MINIMAAL VERBLIJF (1.1.1)
+Gasten kunnen alleen aanvragen voor minimaal 6 nachten versturen.
+Dit staat boven de kalender in de taal van de shortcode. Bij een kortere
+selectie verschijnt een melding en blijft de aanvraagknop uitgeschakeld.
+Klik daarna op een latere vertrekdatum om de selectie te verlengen.
+Ook de server weigert aanvragen korter dan 6 nachten voordat ze worden
+opgeslagen of e-mails worden verstuurd. Bestaande boekingen blijven staan.
+De grens van 5 naar 6 nachten is voor alle vier talen in de frontend getest.
+
+PERSOONLIJK OPMERKINGENVAK EN VINKJE (1.1.3)
+Bij elke boeking staan een privéopmerking en 'Eigen vinkje'.
+Deze worden automatisch bewaard: de tekst na een korte typepauze of bij het
+verlaten van het tekstvak, het vinkje direct bij aan- of uitvinken.
+Er is geen knop Opslaan. 'Bewaard' geeft aan dat de wijziging is opgeslagen.
+Wacht daarop voordat je de pagina verlaat of de boekingsstatus wijzigt.
+Het vinkje heeft geen betekenis voor de boeking. Het is jouw eigen markering.
+Beide velden veranderen geen boekingsstatus, blokkeren geen data en versturen
+geen mail. Gasten zien deze gegevens nergens.
+Bestaande opmerkingen en vinkjes blijven behouden.
+Controleer na installatie opslaan, herladen en uitvinken in WordPress.
+
+MOBIELE OPMAAK (1.1.4)
+Kalenderdagen krijgen eigen smalle binnenmarges, zodat de algemene
+Elementor-knopmarges de zeven kolommen niet meer te breed maken.
+De kalenderkolommen mogen krimpen binnen de beschikbare breedte.
+Navigatiepijlen krijgen vaste afmetingen zonder extra binnenmarges.
+Op telefoons zijn de buitenmarges kleiner en de datums en teksten groter.
+Smalle Elementor-kolommen schakelen ook over naar een enkele kolom.
+De correctie is in de bron gecontroleerd. Visuele browservalidatie van
+het lokale voorbeeld was hier geblokkeerd. Controleer na installatie
+op de eigen telefoon, na het legen van de website- en browsercache.
+
+HUISREGELS (1.1.5)
+Onder het aanvraaggedeelte staat een vaste sectie Huisregels, ook zichtbaar
+voordat de gast het formulier opent. De regels worden weergegeven in de
+taal van de gebruikte shortcode: Nederlands, Engels, Frans of Spaans.
+- Roken is niet toegestaan.
+- Huisdieren zijn niet toegestaan.
+- Feesten, evenementen, vrijgezellenfeesten en luidruchtige bijeenkomsten
+  zijn niet toegestaan.
+
+BORG (1.1.6)
+Bij de weekprijzen en onder het berekende totaal staat 'Exclusief € 500 borg.'
+Deze melding staat ook bij het prijsoverzicht in de ontvangstbevestiging
+voor de gast. De tekst is vertaald in alle vier talen.
+De borg wordt niet opgeteld bij de weergegeven huurprijs.
+
+BETALINGSVOORWAARDEN (1.1.7)
+De korte melding bij de weekprijzen en onder het berekende totaal is vervangen
+door: 'Aanbetaling 20%, restant + borg € 500 uiterlijk 4 weken voor aankomst.'
+Onder het aanvraaggedeelte staat, naast Huisregels, nu ook een vaste sectie
+Betalingsvoorwaarden met de volledige regeling:
+- Bij reservering betaalt u een aanbetaling van 20% van de huursom. Zodra dit
+  bedrag is ontvangen, is uw boeking definitief.
+- Uiterlijk 4 weken voor aankomst betaalt u het resterende bedrag (80%),
+  samen met de borg van € 500.
+- Boekt u binnen 4 weken voor aankomst, dan betaalt u het volledige bedrag
+  inclusief borg in één keer.
+- De borg wordt binnen 14 dagen na vertrek volledig teruggestort, mits het
+  appartement zonder schade en netjes wordt achtergelaten.
+Dezelfde volledige betalingsvoorwaarden staan ook in de ontvangstbevestiging
+aan de gast, onder het prijsoverzicht. Alle teksten zijn vertaald in de
+vier talen (Nederlands, Engels, Frans, Spaans).
